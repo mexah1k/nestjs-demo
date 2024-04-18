@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  postgres:
+    hostname: pg
+    image: postgres:13.4
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: ninja
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8085:8080
+
+  # nestapp:
+  #   build: .
+  #   environment:
+  #     TYPEORM_CONNECTION: postgres
+  #     TYPEORM_USERNAME: postgres
+  #     TYPEORM_PASSWORD: 12345678
+  #     TYPEORM_HOST: postgres
+  #     TYPEORM_DATABASE: ninja
+  #     TYPEORM_PORT: 5432
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - "3000:3000"
+  #   command: npm run start:dev
+  #   restart: always
+
+volumes:
+  postgres_data:
